@@ -14,6 +14,7 @@
             <ul>
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="accounts.html">Hesaplar</a></li>
+                <li><a href="add-account.html">İlan Ekle</a></li>
                 <li><a href="login.html">Giriş Yap</a></li>
                 <li><a href="register.html">Kayıt Ol</a></li>
                 <li><a href="cart.html">Sepet</a></li>
@@ -24,25 +25,28 @@
     <main>
         <section id="welcome">
             <h2>Hoş Geldiniz!</h2>
-            <p>Nova Online, en iyi Valorant hesaplarını sunar. Güvenilir ve hızlı alışveriş için buradayız.</p>
+            <p>Nova Online, Valorant hesap satış platformudur. Güvenilir alışveriş için buradayız.</p>
         </section>
         <section id="featured-accounts">
             <h2>Öne Çıkan Hesaplar</h2>
-            <div class="account-card">
-                <h3>Immortal Hesap</h3>
-                <p>Fiyat: 500 TL</p>
-                <button onclick="addToCart('Immortal Hesap', 500)">Sepete Ekle</button>
-            </div>
-            <div class="account-card">
-                <h3>Radiant Hesap</h3>
-                <p>Fiyat: 1000 TL</p>
-                <button onclick="addToCart('Radiant Hesap', 1000)">Sepete Ekle</button>
-            </div>
+            <div id="featured-list" class="account-list"></div>
+        </section>
+        <section id="search-section">
+            <h2>Hesap Ara</h2>
+            <input type="text" id="search-input" placeholder="Rank, fiyat vb. ara...">
+            <button onclick="searchAccounts()">Ara</button>
+            <div id="search-results" class="account-list"></div>
         </section>
     </main>
     <footer>
         <p>&copy; 2026 Nova Online. Tüm hakları saklıdır.</p>
     </footer>
     <script src="script.js"></script>
+    <script>
+        loadFeaturedAccounts();
+        document.getElementById('search-input').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') searchAccounts();
+        });
+    </script>
 </body>
 </html>
