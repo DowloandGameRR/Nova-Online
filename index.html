@@ -1,0 +1,48 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Online - Valorant Hesap Satış</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Nova Online</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="accounts.html">Hesaplar</a></li>
+                <li><a href="login.html">Giriş Yap</a></li>
+                <li><a href="register.html">Kayıt Ol</a></li>
+                <li><a href="cart.html">Sepet</a></li>
+                <li><a href="profile.html">Profil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="welcome">
+            <h2>Hoş Geldiniz!</h2>
+            <p>Nova Online, en iyi Valorant hesaplarını sunar. Güvenilir ve hızlı alışveriş için buradayız.</p>
+        </section>
+        <section id="featured-accounts">
+            <h2>Öne Çıkan Hesaplar</h2>
+            <div class="account-card">
+                <h3>Immortal Hesap</h3>
+                <p>Fiyat: 500 TL</p>
+                <button onclick="addToCart('Immortal Hesap', 500)">Sepete Ekle</button>
+            </div>
+            <div class="account-card">
+                <h3>Radiant Hesap</h3>
+                <p>Fiyat: 1000 TL</p>
+                <button onclick="addToCart('Radiant Hesap', 1000)">Sepete Ekle</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Nova Online. Tüm hakları saklıdır.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
