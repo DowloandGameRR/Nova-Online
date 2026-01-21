@@ -1,11 +1,133 @@
 // script.js
 let cart = [];
 let user = null;
+let accounts = [];
 
-function addToCart(name, price) {
-    cart.push({name, price});
+function saveAccounts() {
+    localStorage.setItem('accounts', JSON.stringify(accounts));
+}
+
+function loadAccountsData() {
+    accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+}
+
+function renderAccountCard(account, container, showEdit = false) {
+    const card = document.createElement('div');
+    card.classList.add('account-card');
+    card.innerHTML = `
+        <h3>${account.title}</h3>
+        ${account.image ? `<img src="${account.image}" alt="${account.title}">` : ''}
+        <p>Açıklama: ${account.description}</p>
+        <p>Rank: ${account.rank}</p>
+        <p>Fiyat: ${account.price} TL</p>
+        <button onclick="addToCart('${account.id}', ${account.price})">Sepete Ekle</button>
+        ${showEdit ? `<button onclick="deleteAccount('${account.id}')">Sil</button>` : ''}
+    `;
+    container.appendChild(card);
+}
+
+function loadAccounts() {
+    loadAccountsData();
+    const container = document.getElementById('accounts-list');
+    if (container) {
+        container.innerHTML = '';
+        accounts.forEach(account => renderAccountCard(account, container));
+    }
+}
+
+function loadFeaturedAccounts() {
+    loadAccountsData();
+    const container = document.getElementById('featured-list');
+    if (container) {
+        container.innerHTML = '';
+        // Rastgele 3 öne çıkan (veya tümü eğer azsa)
+        const featured = accounts.sort(() => 0.5 - Math.random()).slice(0, 3);
+        featured.forEach(account => renderAccountCard(account, container));
+    }
+}
+
+function loadMyAccounts() {
+    loadAccountsData();
+    const container = document.getElementById('my-accounts');
+    if (container && user) {
+        container.innerHTML = '';
+        const myAccounts = accounts.filter(a => a.owner === user.email);
+        myAccounts.forEach(account => renderAccountCard(account, container, true));
+    }
+}
+
+function addAccount(event) {
+    event.preventDefault();
+    if (!user) {
+        alert('İlan eklemek için giriş yapın!');
+        window.location.href = 'login.html';
+        return;
+    }
+    loadAccountsData();
+    const id = Date.now().toString();
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const rank = document.getElementById('rank').value;
+    const price = parseInt(document.getElementById('price').value);
+    const image = document.getElementById('image').value;
+    const newAccount = { id, title, description, rank, price, image, owner: user.email };
+    accounts.push(newAccount);
+    saveAccounts();
+    alert('İlan eklendi!');
+    document.querySelector('form').reset();
+    window.location.href = 'accounts.html';
+}
+
+function deleteAccount(id) {
+    loadAccountsData();
+    accounts = accounts.filter(a => a.id !== id);
+    saveAccounts();
+    loadMyAccounts();
+    alert('İlan silindi!');
+}
+
+function checkLoggedInForAdd() {
+    if (!localStorage.getItem('currentUser')) {
+        alert('İlan eklemek için giriş yapın!');
+        window.location.href = 'login.html';
+    }
+}
+
+function applyFilters() {
+    loadAccountsData();
+    const rank = document.getElementById('rank-filter').value;
+    const minPrice = parseInt(document.getElementById('price-min').value) || 0;
+    const maxPrice = parseInt(document.getElementById('price-max').value) || Infinity;
+    const filtered = accounts.filter(a => 
+        (rank === '' || a.rank === rank) &&
+        a.price >= minPrice &&
+        a.price <= maxPrice
+    );
+    const container = document.getElementById('accounts-list');
+    container.innerHTML = '';
+    filtered.forEach(account => renderAccountCard(account, container));
+}
+
+function searchAccounts() {
+    loadAccountsData();
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const results = accounts.filter(a => 
+        a.title.toLowerCase().includes(query) || 
+        a.description.toLowerCase().includes(query) ||
+        a.rank.toLowerCase().includes(query) ||
+        a.price.toString().includes(query)
+    );
+    const container = document.getElementById('search-results');
+    if (container) {
+        container.innerHTML = '';
+        results.forEach(account => renderAccountCard(account, container));
+    }
+}
+
+function addToCart(id, price) {
+    cart.push({id, price});
     saveCart();
-    alert(`${name} sepete eklendi!`);
+    alert('Hesap sepete eklendi!');
 }
 
 function saveCart() {
@@ -20,7 +142,7 @@ function loadCart() {
         let total = 0;
         cart.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${item.name} - ${item.price} TL`;
+            li.textContent = `Hesap ID: ${item.id} - ${item.price} TL`;
             cartItems.appendChild(li);
             total += item.price;
         });
@@ -34,7 +156,8 @@ function checkout() {
         window.location.href = 'login.html';
         return;
     }
-    alert('Satın alma işlemi tamamlandı! Teşekkürler.');
+    // Simüle ödeme
+    alert('Ödeme simüle ediliyor... Satın alma tamamlandı! Teşekkürler.');
     cart = [];
     saveCart();
     loadCart();
@@ -46,7 +169,6 @@ function register(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     
-    // Basit doğrulama
     if (localStorage.getItem(email)) {
         alert('Bu e-posta zaten kayıtlı!');
         return;
@@ -83,15 +205,14 @@ function login(event) {
 }
 
 function googleLogin() {
-    // Gerçek Google OAuth için Google API entegrasyonu gerekir, burada simüle ediyoruz
     alert('Google ile giriş simüle ediliyor...');
     user = {username: 'GoogleUser', email: 'google@example.com'};
     localStorage.setItem('currentUser', user.email);
+    localStorage.setItem(user.email, JSON.stringify({username: user.username, password: ''}));
     window.location.href = 'index.html';
 }
 
 function googleRegister() {
-    // Gerçek Google OAuth için Google API entegrasyonu gerekir, burada simüle ediyoruz
     alert('Google ile kayıt simüle ediliyor...');
     user = {username: 'GoogleUser', email: 'google@example.com'};
     localStorage.setItem(user.email, JSON.stringify({username: user.username, password: ''}));
