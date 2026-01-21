@@ -14,6 +14,7 @@
             <ul>
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="accounts.html">Hesaplar</a></li>
+                <li><a href="add-account.html">İlan Ekle</a></li>
                 <li><a href="login.html">Giriş Yap</a></li>
                 <li><a href="register.html">Kayıt Ol</a></li>
                 <li><a href="cart.html">Sepet</a></li>
@@ -24,26 +25,32 @@
     <main>
         <section id="account-list">
             <h2>Valorant Hesapları</h2>
-            <div class="account-card">
-                <h3>Bronz Hesap</h3>
-                <p>Fiyat: 100 TL</p>
-                <button onclick="addToCart('Bronz Hesap', 100)">Sepete Ekle</button>
-            </div>
-            <div class="account-card">
-                <h3>Altın Hesap</h3>
-                <p>Fiyat: 200 TL</p>
-                <button onclick="addToCart('Altın Hesap', 200)">Sepete Ekle</button>
-            </div>
-            <div class="account-card">
-                <h3>Platin Hesap</h3>
-                <p>Fiyat: 300 TL</p>
-                <button onclick="addToCart('Platin Hesap', 300)">Sepete Ekle</button>
-            </div>
+            <div id="accounts-list" class="account-list"></div>
+        </section>
+        <section id="filters">
+            <h3>Filtreler</h3>
+            <label for="rank-filter">Rank:</label>
+            <select id="rank-filter">
+                <option value="">Tümü</option>
+                <option value="Bronz">Bronz</option>
+                <option value="Gümüş">Gümüş</option>
+                <option value="Altın">Altın</option>
+                <option value="Platin">Platin</option>
+                <option value="Elmas">Elmas</option>
+                <option value="Immortal">Immortal</option>
+                <option value="Radiant">Radiant</option>
+            </select>
+            <label for="price-min">Min Fiyat:</label>
+            <input type="number" id="price-min" placeholder="0">
+            <label for="price-max">Max Fiyat:</label>
+            <input type="number" id="price-max" placeholder="∞">
+            <button onclick="applyFilters()">Uygula</button>
         </section>
     </main>
     <footer>
         <p>&copy; 2026 Nova Online. Tüm hakları saklıdır.</p>
     </footer>
     <script src="script.js"></script>
+    <script>loadAccounts();</script>
 </body>
 </html>
