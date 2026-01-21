@@ -1,0 +1,38 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Online - Sepet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Nova Online</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="accounts.html">Hesaplar</a></li>
+                <li><a href="login.html">Giriş Yap</a></li>
+                <li><a href="register.html">Kayıt Ol</a></li>
+                <li><a href="cart.html">Sepet</a></li>
+                <li><a href="profile.html">Profil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="cart">
+            <h2>Sepetiniz</h2>
+            <ul id="cart-items"></ul>
+            <p>Toplam: <span id="total">0</span> TL</p>
+            <button onclick="checkout()">Satın Al</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Nova Online. Tüm hakları saklıdır.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>loadCart();</script>
+</body>
+</html>
