@@ -1,0 +1,49 @@
+<!-- accounts.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Online - Valorant Hesapları</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Nova Online</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="accounts.html">Hesaplar</a></li>
+                <li><a href="login.html">Giriş Yap</a></li>
+                <li><a href="register.html">Kayıt Ol</a></li>
+                <li><a href="cart.html">Sepet</a></li>
+                <li><a href="profile.html">Profil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="account-list">
+            <h2>Valorant Hesapları</h2>
+            <div class="account-card">
+                <h3>Bronz Hesap</h3>
+                <p>Fiyat: 100 TL</p>
+                <button onclick="addToCart('Bronz Hesap', 100)">Sepete Ekle</button>
+            </div>
+            <div class="account-card">
+                <h3>Altın Hesap</h3>
+                <p>Fiyat: 200 TL</p>
+                <button onclick="addToCart('Altın Hesap', 200)">Sepete Ekle</button>
+            </div>
+            <div class="account-card">
+                <h3>Platin Hesap</h3>
+                <p>Fiyat: 300 TL</p>
+                <button onclick="addToCart('Platin Hesap', 300)">Sepete Ekle</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Nova Online. Tüm hakları saklıdır.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
