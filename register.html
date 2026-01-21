@@ -1,0 +1,45 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Online - Kayıt Ol</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Nova Online</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="accounts.html">Hesaplar</a></li>
+                <li><a href="login.html">Giriş Yap</a></li>
+                <li><a href="register.html">Kayıt Ol</a></li>
+                <li><a href="cart.html">Sepet</a></li>
+                <li><a href="profile.html">Profil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="register-form">
+            <h2>Kayıt Ol</h2>
+            <form onsubmit="register(event)">
+                <label for="username">Kullanıcı Adı:</label>
+                <input type="text" id="username" required>
+                <label for="email">E-posta:</label>
+                <input type="email" id="email" required>
+                <label for="password">Şifre:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Kayıt Ol</button>
+            </form>
+            <button onclick="googleRegister()">Google ile Kayıt Ol</button>
+            <p>Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Nova Online. Tüm hakları saklıdır.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
